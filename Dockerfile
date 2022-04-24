@@ -116,8 +116,11 @@ COPY rootfs /
 RUN ln -sf /usr/local/lib/web/frontend/static/websockify /usr/local/lib/web/frontend/static/novnc/utils/websockify && \
 	chmod +x /usr/local/lib/web/frontend/static/websockify/run
 
-EXPOSE 80
-RUN wget "https://github.com/hxh-robb/pokemon-roms/raw/master/ROM/Pokemon%20-%20Yellow%20Version%20(USA%2C%20Europe).gbc" -O rom.gbc
+RUN mkdir -p /game
+
+EXPOSE 8080
+#RUN wget "https://github.com/hxh-robb/pokemon-roms/raw/master/ROM/Pokemon%20-%20Yellow%20Version%20(USA%2C%20Europe).gbc" -O rom.gbc
+
 
 WORKDIR /root
 ENV HOME=/home/ubuntu \
