@@ -34,8 +34,8 @@ pipeline {
                             sh "aws configure import --csv file://$FILE"
                             sh "aws configure set region eu-west-1 --profile retrobrew_jenkins"
                             sh "docker login -u AWS https://692527062901.dkr.ecr.eu-west-1.amazonaws.com -p `aws ecr get-login-password --profile retrobrew_jenkins`"
-                            sh "docker tag gba_vnc:latest 692527062901.dkr.ecr.eu-west-1.amazonaws.com/gba_vnc:latest"
-                            sh "docker push 692527062901.dkr.ecr.eu-west-1.amazonaws.com/gba_vnc:latest"
+                            sh "docker tag vnc_gba:latest 692527062901.dkr.ecr.eu-west-1.amazonaws.com/vnc_gba:dev"
+                            sh "docker push 692527062901.dkr.ecr.eu-west-1.amazonaws.com/vnc_gba:dev"
                         }
                     }
                 }
