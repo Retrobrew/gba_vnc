@@ -16,7 +16,7 @@ pipeline {
                 script {
                     nodejs(nodeJSInstallationName: 'nodejs'){
                         def docker = tool 'docker-agent';
-                        sh('docker build -t vnc_gba .');
+                        sh('docker build -t vnc_gba:develop .');
                     }
                 }
             }
@@ -37,6 +37,17 @@ pipeline {
                             sh "docker tag vnc_gba:develop 692527062901.dkr.ecr.eu-west-1.amazonaws.com/vnc_gba:develop"
                             sh "docker push 692527062901.dkr.ecr.eu-west-1.amazonaws.com/vnc_gba:develop"
                         }
+                    }
+                }
+            }
+        }
+        stage("Cleanup") {
+            steps {
+                script {
+                    nodejs(nodeJSInstallationName: 'nodejs') {
+                        sh "docker image ls"
+                        sh "for i in `docker images |grep 'vnc_gba' | awk -F' ' '{print \$3}'`; do if [ ! -z \"`docker images |grep \$i`\" ]; then docker rmi \$i --force; fi; done"
+                        sh "docker image ls"
                     }
                 }
             }
